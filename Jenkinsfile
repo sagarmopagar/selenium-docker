@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Build Image') {
             steps {
-                    bat "docker build -t=sagarmopagar/selenium-docker ."
+                    bat "docker build -t=sagarmopagar/selenium-docker:1.0 ."
             }
         }
         stage('Push Image') {
