@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build Jar') {
             steps {
-                    bat 'mvn clean package -DskipTests'
+                    bat "mvn clean package -DskipTests"
             }
         }
         stage('Build Image') {
@@ -13,9 +13,14 @@ pipeline {
         }
         stage('Push Image') {
             steps {
-            //    withCredentials([usernamePassword(credentialsId:'dockerhub', passwordVariable:'pass', usernameVariable:'user')])
-                bat "docker push sagarmopagar/selenium-docker:1.0"
-            }
+  		   	 withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'pass', usernameVariable: 'user')]) {
+                    //sh
+			        bat "docker login --username=${user} --password=${pass}"
+			        bat "docker push vinsdocker/selenium-docker:latest"
+			    } 
+  
+  
+             }
         }
     }
 }
